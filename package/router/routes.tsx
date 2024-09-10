@@ -17,13 +17,13 @@ export const routes=[
     },
     {
         path: 'armories',
-        title: '메뉴1',
+        title: '전투정보',
         element: <ArmoriesList/>,
         controller: ArmoriesListController,
         children:[
             {
                 path: ':id',
-                title: '메뉴1 상세',
+                title: '전투정보 상세',
                 hideInMenu:true,
                 element: <ArmoriesView/>,
                 controller: ArmoriesViewController,

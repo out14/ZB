@@ -5,43 +5,43 @@ import {Card} from "@package/component/Card/Card";
 import styled from "styled-components";
 
 export interface Cad {
-    Name: string,
-    Description: string,
-    MinCharacterLevel: number,
-    MinItemLevel: number,
-    AreaName?: string,
-    StartTime: string,
-    EndTime: string,
-    Image?: string,
-    RewardItems?:{
-        Name: string,
-        Icon: string,
-        Grade: string,
-        StartTimes: string|null
+    name: string,
+    description: string,
+    minCharacterLevel: number,
+    minItemLevel: number,
+    areaName?: string,
+    startTime: string,
+    endTime: string,
+    image?: string,
+    rewardItems?:{
+        name: string,
+        icon: string,
+        grade: string,
+        startTimes: string|null
     }[]
 }
 
 export interface Cgr {
-    Raids:CgrRaids[]
-    RewardItems:CgrRewardItems[]
+    raids:CgrRaids[]
+    rewardItems:CgrRewardItems[]
 }
 
 interface CgrRaids{
-    Description:string
-    EndTime:string
-    Image:string
-    MinCharacterLevel:number
-    MinItemLevel:number
-    Name:string
-    StartTime:string
+    description:string
+    endTime:string
+    image:string
+    minCharacterLevel:number
+    minItemLevel:number
+    name:string
+    startTime:string
 }
 interface CgrRewardItems{
-    ExpeditionItemLevel:number
-    Item:{
-        Name: string,
-        Icon: string,
-        Grade: string,
-        StartTimes: string|null
+    expeditionItemLevel:number
+    item:{
+        name: string,
+        icon: string,
+        grade: string,
+        startTimes: string|null
     }[]
 }
 
@@ -49,23 +49,25 @@ export const Content = () => {
 
     const {cadData,cgrData,handleModal}=useController(MainController)
 
+    console.log(cadData,'cadData')
+    console.log(cgrData,'cgrData')
+
     return (
         <Card.Wrap>
-            {/* 
+
             <Card>
                 <ContentStyle>
                     {cadData?.map((e:Cad)=>(
-                        <dl key={e.Name}>
+                        <dl key={e.name}>
                             <dt className='cursor' onClick={()=>handleModal(e)}>
-
+                                <img src={e.image} alt={e.name} />
                             </dt>
                             <dd className='cursor' onClick={()=>handleModal(e)}>
-                                도전 컨텐츠 이름
-
+                                {e.name}
                             </dd>
                             <dd>
                                 <span>
-                                    {dateFormat(e.StartTime)} ~ {dateFormat(e.EndTime)}
+                                    {dateFormat(e.startTime)} ~ {dateFormat(e.endTime)}
                                 </span>
                             </dd>
                         </dl>
@@ -74,7 +76,7 @@ export const Content = () => {
             </Card>
             <Card>
                 <ContentStyle>
-                    {cgrData?.Raids?.map((e)=>(
+                    {/* {cgrData?.map((e)=>(
                         <dl key={e.Name}>
                             <dt className='cursor' onClick={()=>handleModal(e)}>
                                 
@@ -89,10 +91,10 @@ export const Content = () => {
                                 </span>
                             </dd>
                         </dl>
-                    ))}
+                    ))} */}
                 </ContentStyle>
-            </Card>
-             */}
+            </Card> 
+
         </Card.Wrap>
     );
 };

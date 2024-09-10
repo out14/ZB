@@ -5,12 +5,12 @@ import {useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 interface EventItem{
-    Link:string
-    RewardDate?:string
-    StartDate:string
-    EndDate?:string
-    Thumbnail:string
-    Title:string
+    link:string
+    rewardDate?:string
+    startDate:string
+    endDate?:string
+    thumbnail:string
+    title:string
 }
 
 export const Event = () => {
@@ -18,7 +18,7 @@ export const Event = () => {
 
     const navigate = useNavigate()
 
-    const { noticeData }=useController(MainController)
+    const { eventData }=useController(MainController)
     // console.log(noticeData.data)
 
     // if(!noticeData) return 
@@ -27,24 +27,19 @@ export const Event = () => {
 
     const [ count,setCount ]=useState(0)
 
-
-    console.log('noticeData',noticeData)
-
-    
-
     useEffect(()=>{
 
-        if(noticeData==='error') {
+        if(eventData==='error') {
 
             return navigate('/auction')
         }
 
-    },[noticeData])
+    },[eventData])
 
     //return null;
 
 
-    const slideState = noticeData.length-1 > count
+    const slideState = eventData.length-1 > count
 
     const handleSlide = (event:'prev'|'next')=>{
         if(event==='prev'){
@@ -100,7 +95,7 @@ export const Event = () => {
                     ref={slideRef}
                     style={{transform:`translateX( -${count * 100}%)`}}
                 >
-                    {noticeData?.map((e:EventItem,idx)=>(
+                    {eventData?.map((e:EventItem,idx:any)=>(
                         <li
                             className={'item'}
                             key={idx}
@@ -108,18 +103,17 @@ export const Event = () => {
                             data-label={idx}
                         >
                            <div className="item--img">
-                               {/*<img src={e.Thumbnail} alt=""/>*/}
+                               <img src={e.thumbnail} alt=""/>
                            </div>
                            <div className="item--des">
                                <div className="item--des--tit">
-                                   {/*{e.Title}*/}
-                                   슬라이드 {idx}
+                                   {e.title}
                                </div>
                                <div className="item--des--date">
-                                   <span>진행기간</span> {dateFormat(e.StartDate)}~{e.EndDate?dateFormat(e.EndDate):'-'}
+                                   <span>진행기간</span> {dateFormat(e.startDate)}~{e.endDate?dateFormat(e.endDate):'-'}
                                </div>
                                <div className="item--des--date">
-                                   <span>발표기간</span> {e.RewardDate?dateFormat(e.RewardDate):'-'}
+                                   <span>발표기간</span> {e.rewardDate?dateFormat(e.rewardDate):'-'}
                                </div>
                            </div>
                         </li>
@@ -141,7 +135,7 @@ const EventSlideStyle = styled.div`
         background:rgba(255,255,255,0.2);
         border-radius:50%;
         position:absolute;
-        top:calc(90px);
+        top:calc(50% - 30px);
         box-shadow:0 2px 4px rgba(0,0,0,0.1);
         z-index:2;
         display:flex;
@@ -212,7 +206,7 @@ const EventSlideStyle = styled.div`
         flex-shrink: 0;
         &--img{
             width:100%;
-            height:200px;
+            min-height:200px;
             background:rgba(0,0,0,0.03);
             border-radius:5px;
             box-sizing:border-box;

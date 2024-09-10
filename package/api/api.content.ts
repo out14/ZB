@@ -3,21 +3,21 @@ import axios from "axios";
 class ContentApi{
 
     async cad(){
-        const res = await axios.get(`gamecontents/challenge-abyss-dungeons`)
+        const res = await axios.get(`/abyss`)
 
-        return res?.data
+        return res?.data.data
     }
 
     async cgr(){
-        const res = await axios.get(`gamecontents/challenge-guardian-raids`)
+        const res = await axios.get(`/guardian`)
 
-        return res?.data
+        return res?.data.data
     }
 
     async calendar(){
-        const res = await  axios.get(`gamecontents/calendar`)
+        const res = await  axios.get(`/calendar`)
 
-        return res?.data
+        return res?.data.data
     }
 
 }

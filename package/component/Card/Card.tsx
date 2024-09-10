@@ -21,7 +21,7 @@ const CardWrap=({
     gap=20
 }:{
     children:ReactNode,
-    gap:number
+    gap?:number
 })=>{
     return (
         <CardWrapStyle gap={gap}>

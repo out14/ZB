@@ -9,38 +9,39 @@ export const ModalContent = ({data}:{data:Cad&Cgr}) => {
     return (
         <ModalContentStyle>
             <div className="title">
-                {data.Name} <span>{data.AreaName}</span>
+                {/* {data.name} <span>{data.areaName}</span> */}
+                {data.areaName}
             </div>
             <div className="date">
-                {data.StartTime} ~ { data.EndTime}
+                {data.startTime} ~ { data.endTime}
             </div>
             <div className="img">
-                <img src={data.Image} alt={data.Name}/>
+                <img src={data.image} alt={data.name}/>
             </div>
             <div className="description">
                 <dl className="description--sub">
-                    <dt>최소</dt>
-                    <dd>{data.MinCharacterLevel}</dd>
+                    <dt>최소 캐릭터레벨</dt>
+                    <dd>{data.minCharacterLevel}</dd>
                 </dl>
                 <dl className="description--sub">
-                    <dt>최소</dt>
-                    <dd>{data.MinItemLevel}</dd>
+                    <dt>최소 아이템레벨</dt>
+                    <dd>{data.minItemLevel}</dd>
                 </dl>
-                {data.RewardItems&&(
+                {data.rewardItems&&(
                     <dl className="description--sub">
-                        <dt>기대</dt>
+                        <dt>기대 보상</dt>
                         <dd className="items">
-                            {data.RewardItems.map((e)=>(
+                            {data.rewardItems.map((e)=>(
                                 <div className="description--sub--item">
-                                    <img src={e.Icon} alt={e.Name}/>
-                                    <p>{e.Grade} {e.Name}</p>
+                                    <img src={e.icon} alt={e.name}/>
+                                    <p>{e.grade} {e.name}</p>
                                 </div>
                             ))}
                         </dd>
                     </dl>
                 )}
                 <div className="description--cnt">
-                    {data.Description}
+                    {data.description}
                 </div>
             </div>
         </ModalContentStyle>
@@ -48,7 +49,7 @@ export const ModalContent = ({data}:{data:Cad&Cgr}) => {
 };
 
 const ModalContentStyle = styled.div`
-    width:450px;
+    width:500px;
     .title{
         font-size:18px;
         color:var(--txt-colorB);
@@ -82,21 +83,23 @@ const ModalContentStyle = styled.div`
             align-items:flex-start;
             justify-content:flex-start;
             width:100%;
+            flex-wrap:wrap;
             gap:15px;
             dt{
                 font-size:14px;
                 color:var(--txt-colorB);
                 font-weight:600;
-                width:50px;
+                min-width:50px;
             }
             dd{
                 font-size:12px;
                 font-weight:400;
-                width:calc(100% - 100px);
+                // width:calc(100% - 100px);
                 &.items{
                     display:flex;
                     align-items:center;
-                    justify-content:flex-start;
+                    // justify-content:flex-start;
+                    justify-content:space-around;
                     width:100%;
                     gap:4px;
                     margin-bottom:10px;

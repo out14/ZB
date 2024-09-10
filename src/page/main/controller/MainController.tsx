@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery, useQuery } from '@tanstack/react-query';
 import noticeApi from "@package/api/api.notice";
 import {contentApi} from "@package/api";
 import {useContext} from "react";
@@ -11,32 +11,32 @@ export const MainController = () => {
 
     const { confirm,newModal,closeModal } = useContext(ModalContext);
 
-    const {data:noticeData }=useSuspenseQuery({
-        queryFn: async ()=> await noticeApi.list() ?? 'error' ,
+    const {data:eventData }=useSuspenseQuery({
+        queryFn: async ()=> await noticeApi.eventList() ?? 'error' ,
         queryKey:["type"]
     })
 
-    // const { data:cadData } =useSuspenseQuery({
-    //     queryFn: async ()=> await contentApi.cad() ??'a',
-    //     queryKey:["cad"]
-    // })
+    const { data:cadData } =useQuery({
+        queryFn: async ()=> await contentApi.cad() ??'error',
+        queryKey:["cad"]
+    })
 
-    // const { data:cgrData } =useSuspenseQuery({
-    //     queryFn: async ()=> await contentApi.cgr() ??'a',
-    //     queryKey:["cgr"]
-    // })
+    const { data:cgrData } =useQuery({
+        queryFn: async ()=> await contentApi.cgr() ??'error',
+        queryKey:["cgr"]
+    })
 
-    // const {data:calendarData}=useSuspenseQuery({
-    //     queryFn:async ()=> await contentApi.calendar() ??'a',
-    //     queryKey:["calendar"]
-    // })
+    const {data:calendarData}=useSuspenseQuery({
+        queryFn:async ()=> await contentApi.calendar() ??'error',
+        queryKey:["calendar"]
+    })
 
-    const handleModal = async (data) =>{
+    const handleModal = async (data:T) =>{
         await newModal({
             props:{
                 // title:data.Name,
                 // content:data.Description,
-                title:'팝업 타이틀',
+                title:data.name,
                 content:<ModalContent data={data}/>,
                 onClose:()=>closeModal(),
                 onOk:()=>confirm()
@@ -45,17 +45,17 @@ export const MainController = () => {
     }
 
     // const copySchedule = JSON.parse(JSON.stringify([...calendarData])) as ICategory[]
-    // const copySchedule = JSON.parse(JSON.stringify([...calendarData]))?.map( (e)=>({
-    //     ...e,
-    //     StartDay:e?.StartTimes? e?.StartTimes[0] : ''
-    // } ))
+    const copySchedule = JSON.parse(JSON.stringify([...calendarData]))?.map( (e)=>({
+        ...e,
+        StartDay:e?.StartTimes? e?.StartTimes[0] : ''
+    } ))
 
     return {
-        noticeData,
-        // cadData,
-        // cgrData,
-        // calendarData,
-        // copySchedule,
+        eventData,
+        cadData,
+        cgrData,
+        calendarData,
+        copySchedule,
         handleModal
     };
 };

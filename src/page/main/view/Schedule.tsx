@@ -11,16 +11,16 @@ import moment from "moment";
 
 export const Schedule = () => {
 
-    // const { calendarData, copySchedule } = useController(MainController)
+    const { calendarData, copySchedule } = useController(MainController)
 
-    // const [value, onChange] = useState(new Date());
+    const [value, onChange] = useState(new Date());
 
-    // const thisMonth = moment().format("MMMM");
+    const thisMonth = moment().format("MMMM");
 
 
     return (
         <CalendarStyle>
-            {/* 
+            
             <Calendar
                 formatDay={(locale, date) => dayjs(date).format('DD')}
                 onChange={onChange}
@@ -38,7 +38,7 @@ export const Schedule = () => {
                     
                 }
             />
-             */}
+
         </CalendarStyle>
     );
 };
